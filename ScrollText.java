@@ -1,4 +1,4 @@
-private class AutoReadingTask extends AsyncTask<String, Integer, String> {
+private class ScrollText extends AsyncTask<String, Integer, String> {
         int lineCounter, lineHeight, tvHeight, scrollHeight;
         @Override
         protected void onPreExecute() {}
