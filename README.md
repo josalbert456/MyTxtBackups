@@ -1,1 +1,1 @@
-# MyTxtBackups
+ScrollText: maybe this class is the best solution to jump in the text and display it on the screen elegantly. Eight years ago, I have used this method to implement the app. But the padding text lines are not added into codes of that time, so the screen always displays a little less texts when the reader flip back. Now, the padding lines are added and the problme solved.
