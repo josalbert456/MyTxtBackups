@@ -4,8 +4,16 @@ private class AutoReadingTask extends AsyncTask<String, Integer, String> {
         protected void onPreExecute() {}
         @Override
         protected String doInBackground(String... params) {
+                // owing to the display delay, we have to delay for 0.1 sec,
+                // which seems, at the first glance, a bad idea, but when 
+                // it is for the flipping things, it becomes a good thing
+                
+            // first time, we calculate the scrollHeight and reset the Text
+            // second time, we scoll to the scrollHeight
+            
             for(int i=0; i<2; i++){
                 try{
+                        
                     Thread.sleep(100);
 
                     publishProgress(i);
