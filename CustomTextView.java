@@ -1,3 +1,4 @@
+// because the space stuffs, this method does not apply to some languages
 String result = "";
 int heightFactor = 0;
 int curPos = 0;
