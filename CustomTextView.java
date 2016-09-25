@@ -2,10 +2,11 @@ String result = "";
 int heightFactor = 0;
 int curPos = 0;
 paint.getTextBounds(text, 0, text.length(), bound);
-while(bound.width()>this.getWidth()){
+int viewWidth = this.getWidth();
+while(bound.width()>viewWidth){
     paint.getTextBounds(text.substring(0, curPos), 0, curPos, bound);
     curPos++;
-    if(bound.width()>this.getWidth()){
+    if(bound.width()>viewWidth){
         // we have incremented curPos once
         curPos--;
         // subtract 2 to deal with the problem when the char at curPos is space
