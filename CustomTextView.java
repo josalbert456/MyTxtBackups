@@ -25,7 +25,7 @@ String result = "";
                     case CHARACTER:
                         // we have incremented curPos once
                         curPos--;
-                        result = text.substring(0, curPos-1);
+                        result = text.substring(0, curPos-2);
                         canvas.drawText(result, textPosX, textPosY + fontSize * heightFactor, paint);
                         heightFactor++;
                         text = text.substring(result.length());
