@@ -1,4 +1,13 @@
-@Override
+public static enum LangType{
+        ALPHABETIC, CHARACTER
+    }
+    LangType langType;
+    public void setText(String text, LangType langType){
+        this.langType = langType;
+        setText(text);
+    }
+    int MAX_CHAR_IN_ONE_LINE = 200;
+    @Override
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
         Paint paint = getBrush();
@@ -6,8 +15,20 @@
         String result = "";
         int heightFactor = 0;
         int curPos = 0;
-        paint.getTextBounds(text, 0, text.length(), bound);
+        if(text.length()>=MAX_CHAR_IN_ONE_LINE){
+            paint.getTextBounds(text.substring(0, MAX_CHAR_IN_ONE_LINE), 0, MAX_CHAR_IN_ONE_LINE, bound);
+        }else {
+            paint.getTextBounds(text, 0, text.length(), bound);
+        }
+        int maxLines = this.getWidth()/bound.height();
+        //canvas.drawText(""+maxLines, 100, 100, paint);
         while(bound.width()>this.getWidth()){
+            if(heightFactor>=maxLines){
+                paint.setColor(Color.rgb(255, 255, 255));
+                canvas.drawText(""+heightFactor, 100, 100, paint);
+                paint.setColor(Color.rgb(0, 0, 0));
+                return;
+            }
             paint.getTextBounds(text.substring(0, curPos), 0, curPos, bound);
             curPos++;
             // replace 10 with right and left padding
@@ -47,11 +68,20 @@
                 curPos = 0;
                 heightFactor++;
             }
-            paint.getTextBounds(text, 0, text.length(), bound);
+
+            // this is where the performance stuff works,
+            // we set a max_char_in_one_line field instead of calculate each time
+            // the entire string, which for a very long string is a great improvement
+            // in performance
+            if(text.length()>=MAX_CHAR_IN_ONE_LINE){
+                paint.getTextBounds(text.substring(0, MAX_CHAR_IN_ONE_LINE), 0, MAX_CHAR_IN_ONE_LINE, bound);
+            }else {
+                paint.getTextBounds(text, 0, text.length(), bound);
+            }
         }
-        canvas.drawText(text, textPosX, textPosY + heightFactor * (fontSize + 3), paint);
+        // the remained chars are invisible, so we don't display them
+        //canvas.drawText(text, textPosX, textPosY + heightFactor * (fontSize + 3), paint);
     }
-    // a raw padding function
     private void drawPadding(Canvas canvas, String text, Paint paint, int heightFactor){
         Rect bound = new Rect();
         paint.getTextBounds(text, 0, text.length(), bound);
