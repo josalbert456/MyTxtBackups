@@ -1,12 +1,28 @@
-public static enum LangType{
+    public static enum LangType{
         ALPHABETIC, CHARACTER
     }
     LangType langType;
+
+    public void setText(String text){
+        this.text = text;
+        postInvalidate();
+    }
+
     public void setText(String text, LangType langType){
         this.langType = langType;
         setText(text);
     }
     int MAX_CHAR_IN_ONE_LINE = 200;
+    private void printShortText(String text, Canvas canvas, Paint paint, int heightFactor){
+        int end = text.indexOf('\n');
+        while(end>=0){
+            canvas.drawText(text.substring(0, end), textPosX, textPosY + heightFactor * (fontSize+3), paint);
+            heightFactor++;
+            text = text.substring(end+1);
+            end = text.indexOf('\n');
+        }
+    }
+
     @Override
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
@@ -22,6 +38,9 @@ public static enum LangType{
         }
         int maxLines = this.getWidth()/bound.height();
         //canvas.drawText(""+maxLines, 100, 100, paint);
+        if(bound.width()<this.getWidth()){
+            printShortText(text, canvas, paint, heightFactor);
+        }
         while(bound.width()>this.getWidth()){
             if(heightFactor>=maxLines)break;/*{
                 paint.setColor(Color.rgb(255, 255, 255));
@@ -38,7 +57,7 @@ public static enum LangType{
                         // we have incremented curPos once
                         curPos--;
                         // subtract 2 to deal with the problem when the char at curPos is space
-                        result = text.substring(0, curPos-2);
+                        result = text.substring(0, curPos-3);
                         result = result.substring(0, result.lastIndexOf(' '));
                         drawPadding(canvas, result, paint, heightFactor);
                         //canvas.drawText(result, textPosX, textPosY + (fontSize + 3) * heightFactor, paint);
@@ -77,6 +96,10 @@ public static enum LangType{
                 paint.getTextBounds(text.substring(0, MAX_CHAR_IN_ONE_LINE), 0, MAX_CHAR_IN_ONE_LINE, bound);
             }else {
                 paint.getTextBounds(text, 0, text.length(), bound);
+            }
+
+            if(bound.width()<this.getWidth()){
+                printShortText(text, canvas, paint, heightFactor);
             }
         }
         // the remained chars are invisible, so we don't display them
