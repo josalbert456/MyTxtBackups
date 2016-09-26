@@ -51,6 +51,7 @@
         }
         canvas.drawText(text, textPosX, textPosY + heightFactor * (fontSize + 3), paint);
     }
+    // a raw padding function
     private void drawPadding(Canvas canvas, String text, Paint paint, int heightFactor){
         Rect bound = new Rect();
         paint.getTextBounds(text, 0, text.length(), bound);
