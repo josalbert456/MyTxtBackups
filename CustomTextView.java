@@ -23,12 +23,12 @@ public static enum LangType{
         int maxLines = this.getWidth()/bound.height();
         //canvas.drawText(""+maxLines, 100, 100, paint);
         while(bound.width()>this.getWidth()){
-            if(heightFactor>=maxLines){
+            if(heightFactor>=maxLines)break;/*{
                 paint.setColor(Color.rgb(255, 255, 255));
                 canvas.drawText(""+heightFactor, 100, 100, paint);
                 paint.setColor(Color.rgb(0, 0, 0));
                 return;
-            }
+            }*/
             paint.getTextBounds(text.substring(0, curPos), 0, curPos, bound);
             curPos++;
             // replace 10 with right and left padding
