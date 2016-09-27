@@ -12,20 +12,20 @@ import android.widget.Toast;
 
 import com.example.root.mytextviewone.R;
 
-public class MyView extends View implements View.OnClickListener{
+public class MyViewTwo extends View implements View.OnClickListener{
     Context context;
-    public MyView(Context context){
+    public MyViewTwo(Context context){
         super(context);
         this.context = context;
         initCircleView();
     }
-    public MyView(Context context, AttributeSet attrs){
+    public MyViewTwo(Context context, AttributeSet attrs){
         super(context, attrs);
         this.context = context;
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.MyView);
         initCircleView(t);
     }
-    public MyView(Context context, AttributeSet attrs, int def){
+    public MyViewTwo(Context context, AttributeSet attrs, int def){
         super(context, attrs, def);
         this.context = context;
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.MyView, def, 0);
@@ -195,6 +195,7 @@ public class MyView extends View implements View.OnClickListener{
         }
     }
     boolean isNextNewLineInCharType = false;
+    // padding needs more optimization
     private void paddingDraw(Canvas canvas, String text, Paint paint){
         Rect bound = new Rect();
         paint.getTextBounds(text, 0, text.length(), bound);
