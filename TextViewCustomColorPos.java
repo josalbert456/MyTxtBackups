@@ -362,7 +362,7 @@ public class TextViewCustomColorPos extends View implements View.OnClickListener
 
 
 // character text padding
-/*String c = "字";
+/*String c = "क";
         paint.getTextBounds(c, 0, c.length(), textBound);
 
         if(langType==LangType.CHARACTER){
